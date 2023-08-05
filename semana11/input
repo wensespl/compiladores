@@ -1,0 +1,11 @@
+Program MiProg;
+Begin
+	x:=5+2*3;
+	y:=6-2/2;
+	if y>x then
+		Begin
+			a:=2;
+			b:=a*3;
+		End
+	z:=6+(a+10/2);
+End.

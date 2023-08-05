@@ -1,0 +1,188 @@
+Grammar
+
+    0 $accept: prog $end
+
+    1 prog: expr '\n' prog
+    2     | ε
+
+    3 expr: expr '+' term
+    4     | expr '-' term
+    5     | term
+
+    6 term: term '*' NUMBER
+    7     | term '/' NUMBER
+    8     | NUMBER
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    '\n' (10) 1
+    '*' (42) 6
+    '+' (43) 3
+    '-' (45) 4
+    '/' (47) 7
+    error (256)
+    NUMBER (258) 6 7 8
+
+
+Nonterminals, with rules where they appear
+
+    $accept (9)
+        on left: 0
+    prog (10)
+        on left: 1 2
+        on right: 0 1
+    expr (11)
+        on left: 3 4 5
+        on right: 1 3 4
+    term (12)
+        on left: 6 7 8
+        on right: 3 4 5 6 7
+
+
+State 0
+
+    0 $accept: • prog $end
+
+    NUMBER  shift, and go to state 1
+
+    $default  reduce using rule 2 (prog)
+
+    prog  go to state 2
+    expr  go to state 3
+    term  go to state 4
+
+
+State 1
+
+    8 term: NUMBER •
+
+    $default  reduce using rule 8 (term)
+
+
+State 2
+
+    0 $accept: prog • $end
+
+    $end  shift, and go to state 5
+
+
+State 3
+
+    1 prog: expr • '\n' prog
+    3 expr: expr • '+' term
+    4     | expr • '-' term
+
+    '\n'  shift, and go to state 6
+    '+'   shift, and go to state 7
+    '-'   shift, and go to state 8
+
+
+State 4
+
+    5 expr: term •
+    6 term: term • '*' NUMBER
+    7     | term • '/' NUMBER
+
+    '*'  shift, and go to state 9
+    '/'  shift, and go to state 10
+
+    $default  reduce using rule 5 (expr)
+
+
+State 5
+
+    0 $accept: prog $end •
+
+    $default  accept
+
+
+State 6
+
+    1 prog: expr '\n' • prog
+
+    NUMBER  shift, and go to state 1
+
+    $default  reduce using rule 2 (prog)
+
+    prog  go to state 11
+    expr  go to state 3
+    term  go to state 4
+
+
+State 7
+
+    3 expr: expr '+' • term
+
+    NUMBER  shift, and go to state 1
+
+    term  go to state 12
+
+
+State 8
+
+    4 expr: expr '-' • term
+
+    NUMBER  shift, and go to state 1
+
+    term  go to state 13
+
+
+State 9
+
+    6 term: term '*' • NUMBER
+
+    NUMBER  shift, and go to state 14
+
+
+State 10
+
+    7 term: term '/' • NUMBER
+
+    NUMBER  shift, and go to state 15
+
+
+State 11
+
+    1 prog: expr '\n' prog •
+
+    $default  reduce using rule 1 (prog)
+
+
+State 12
+
+    3 expr: expr '+' term •
+    6 term: term • '*' NUMBER
+    7     | term • '/' NUMBER
+
+    '*'  shift, and go to state 9
+    '/'  shift, and go to state 10
+
+    $default  reduce using rule 3 (expr)
+
+
+State 13
+
+    4 expr: expr '-' term •
+    6 term: term • '*' NUMBER
+    7     | term • '/' NUMBER
+
+    '*'  shift, and go to state 9
+    '/'  shift, and go to state 10
+
+    $default  reduce using rule 4 (expr)
+
+
+State 14
+
+    6 term: term '*' NUMBER •
+
+    $default  reduce using rule 6 (term)
+
+
+State 15
+
+    7 term: term '/' NUMBER •
+
+    $default  reduce using rule 7 (term)

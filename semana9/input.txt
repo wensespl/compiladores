@@ -1,0 +1,6 @@
+Program MiProg;
+Begin
+  x:=3;
+  y:=6+x;
+  z:=3-4*y/2;
+End.

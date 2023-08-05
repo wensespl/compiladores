@@ -1,0 +1,121 @@
+Grammar
+
+    0 $accept: expr $end
+
+    1 expr: ID DOSPUNTOS IGUAL termino expr
+    2     | ε
+
+    3 termino: termino MAS NUM
+    4        | NUM
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    ID (258) 1
+    IGUAL (259) 1
+    NUM (260) 3 4
+    MAS (261) 3
+    DOSPUNTOS (262) 1
+
+
+Nonterminals, with rules where they appear
+
+    $accept (8)
+        on left: 0
+    expr (9)
+        on left: 1 2
+        on right: 0 1
+    termino (10)
+        on left: 3 4
+        on right: 1 3
+
+
+State 0
+
+    0 $accept: • expr $end
+
+    ID  shift, and go to state 1
+
+    $default  reduce using rule 2 (expr)
+
+    expr  go to state 2
+
+
+State 1
+
+    1 expr: ID • DOSPUNTOS IGUAL termino expr
+
+    DOSPUNTOS  shift, and go to state 3
+
+
+State 2
+
+    0 $accept: expr • $end
+
+    $end  shift, and go to state 4
+
+
+State 3
+
+    1 expr: ID DOSPUNTOS • IGUAL termino expr
+
+    IGUAL  shift, and go to state 5
+
+
+State 4
+
+    0 $accept: expr $end •
+
+    $default  accept
+
+
+State 5
+
+    1 expr: ID DOSPUNTOS IGUAL • termino expr
+
+    NUM  shift, and go to state 6
+
+    termino  go to state 7
+
+
+State 6
+
+    4 termino: NUM •
+
+    $default  reduce using rule 4 (termino)
+
+
+State 7
+
+    1 expr: ID DOSPUNTOS IGUAL termino • expr
+    3 termino: termino • MAS NUM
+
+    ID   shift, and go to state 1
+    MAS  shift, and go to state 8
+
+    $default  reduce using rule 2 (expr)
+
+    expr  go to state 9
+
+
+State 8
+
+    3 termino: termino MAS • NUM
+
+    NUM  shift, and go to state 10
+
+
+State 9
+
+    1 expr: ID DOSPUNTOS IGUAL termino expr •
+
+    $default  reduce using rule 1 (expr)
+
+
+State 10
+
+    3 termino: termino MAS NUM •
+
+    $default  reduce using rule 3 (termino)
