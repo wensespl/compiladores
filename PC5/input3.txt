@@ -1,0 +1,8 @@
+Algoritmo Demo
+inicioAlgoritmo
+  x=10;
+  Mientras(x <= 15) hacer
+    x=x+1;
+    imprimir x;
+  FinMientras
+finAlgoritmo.

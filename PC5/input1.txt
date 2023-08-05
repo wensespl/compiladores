@@ -1,0 +1,9 @@
+Algoritmo Demo
+inicioAlgoritmo
+  y=1, x=18, m=1, n=15
+  si x <= 20 entonces
+    y=y+n;
+  sino
+    x=x+m;
+  finsi
+finAlgoritmo.

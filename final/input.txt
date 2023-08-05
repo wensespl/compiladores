@@ -1,0 +1,23 @@
+Programa Ejemplo
+{
+  Var x=11, y=11, z=2, s=0;
+  si x < y
+  [
+    calcular desde x aumentado en z hasta y
+    [
+      s = s + x**2;
+    ]
+    Imprimir s;
+  ]
+  sino
+  [
+    si x = y
+    [
+      Imprimir 0;
+    ]
+    sino
+    [
+      Imprimir "No existe la suma";
+    ]
+  ]
+}
